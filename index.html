@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Tilt Labyrinth</title>
     <style>
         * {
@@ -13,59 +13,29 @@
 
         body {
             overflow: hidden;
-            background-color: #e8e8e8;
-            font-family: 'Arial', sans-serif;
+            background: #b8b8b8;
+            touch-action: none;
         }
 
-        #canvas-container {
+        #container {
             width: 100vw;
             height: 100vh;
+        }
+
+        canvas {
             display: block;
+            cursor: grab;
         }
 
-        #instructions {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 14px;
-            text-align: center;
-            transition: opacity 0.3s;
-        }
-
-        #instructions.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .key-hint {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 5px 10px;
-            border-radius: 5px;
-            margin: 0 5px;
-            font-weight: bold;
+        canvas:active {
+            cursor: grabbing;
         }
     </style>
 </head>
 <body>
-    <div id="canvas-container"></div>
-    <div id="instructions">
-        Use <span class="key-hint">← → ↑ ↓</span> arrow keys to tilt the maze<br>
-        <span class="key-hint">Mouse Drag</span> to orbit camera
-    </div>
+    <div id="container"></div>
 
-    <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
-
-    <!-- Cannon.js for physics -->
-    <script src="https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.min.js"></script>
-
-    <!-- Main script -->
-    <script src="main.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

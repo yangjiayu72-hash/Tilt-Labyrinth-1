@@ -1,127 +1,257 @@
 # Tilt Labyrinth
 
-An interactive 3D labyrinth game where you guide a metal ball through a floating maze using tilt controls.
+An interactive 3D maze game where you guide a metallic ball through a floating labyrinth using sequential tilt controls.
 
-![Tilt Labyrinth](https://img.shields.io/badge/Three.js-r152-blue) ![Cannon.js](https://img.shields.io/badge/Cannon--ES-0.20.0-green)
+## Overview
+
+Tilt Labyrinth is a physics-based puzzle game that requires precise sequential input to navigate a ball through a suspended maze structure. The game features smooth animations, realistic ball physics, and a spectacular finale sequence when completed.
 
 ## Features
 
-- **3D Floating Maze**: A maze structure suspended in mid-air with no floor or ceiling
-- **Physics-Based Ball**: Realistic metal ball with gravity and collision physics
-- **Orbital Camera**: Mouse/touch-controlled camera that orbits around the maze
-- **Sequential Tilt Controls**: Four-step sequence of tilt movements to guide the ball
-- **Dynamic Animations**: Maze drop, ball launch, and orbital animations upon completion
-- **Rolling Sound Effects**: Audio feedback during ball movement
-- **Responsive Design**: Works on desktop and mobile devices
+### Scene & Visuals
+- **Floating Maze**: Suspended 3D maze structure with 6 vertical walls
+- **No Floor/Ceiling**: Complete visibility through the maze structure
+- **Metallic Ball**: 18mm diameter ball with reflective metal appearance
+- **Bird's-Eye Camera**: Fixed 25° tilt angle for optimal viewing
+- **Atmospheric Rendering**: Fog effects and professional lighting setup
+
+### Controls
+- **Camera Orbit**: Drag mouse or swipe to rotate camera around the maze
+  - Camera maintains fixed height and distance
+  - Smooth orbital rotation only
+- **Tilt Sequence**: Four arrow key inputs in strict order
+  - **Step 1**: `←` Left Arrow - Roll through one corner (low speed)
+  - **Step 2**: `→` Right Arrow - Roll through two corners (medium speed + sound)
+  - **Step 3**: `↑` Up Arrow - Move to center platform edge
+  - **Step 4**: `↓` Down Arrow - Reach exact center and trigger finale
+
+### Finale Event
+When the ball reaches the center:
+1. **Maze Drop**: Entire structure drops 8% of height (0.2s ease-out)
+2. **Ball Launch**: Ball launches upward 12% of maze height (parabolic motion)
+3. **Orbital Flight**: Ball circles outside maze for 2 complete loops (4 seconds)
+4. **Return**: Ball smoothly returns to exact center and stops
 
 ## How to Play
 
-### Controls
+### Quick Start
+1. Open `index.html` in a modern web browser
+2. Use mouse/touch to explore the scene by orbiting the camera
+3. Follow the four-step tilt sequence using arrow keys
+4. Watch the finale animation
 
-- **Arrow Keys**: Tilt the maze (← → ↑ ↓)
-- **Mouse Drag**: Orbit the camera around the maze
-- **Touch Drag** (mobile): Orbit the camera
+### Detailed Instructions
 
-### Sequence
+**Step 1 - Tilt Left** (`←`)
+- Ball begins at maze entrance (top-left)
+- Rolls through first 90-degree corner
+- Low speed movement
+- Wait for ball to stop before next input
 
-Follow this exact sequence to complete the maze:
+**Step 2 - Tilt Right** (`→`)
+- Ball navigates through two corners
+- Medium speed with rolling sound effect
+- Longer path segment
+- Wait for ball to complete movement
 
-1. **Press ←** (Left): Ball rolls through one 90-degree corner at low speed
-2. **Press →** (Right): Ball rolls through two corners at medium speed with sound
-3. **Press ↑** (Forward): Ball moves toward the center platform
-4. **Press ↓** (Backward): Ball reaches the center and triggers the finale
+**Step 3 - Tilt Forward** (`↑`)
+- Ball approaches center platform
+- Moves to edge of circular center
+- Prepares for final movement
 
-### Finale Event
+**Step 4 - Tilt Backward** (`↓`)
+- Ball reaches exact center point
+- Stops precisely at center
+- Automatically triggers finale sequence
 
-When the ball reaches the center:
-- The maze drops slightly (8% of its height)
-- The ball launches upward (12% of maze height)
-- The ball orbits around the outside of the maze twice
-- The ball returns to rest at the exact center
+### Important Notes
+- Inputs must be in exact sequence (left → right → forward → backward)
+- Wait for current animation to complete before next input
+- Wrong input order will be ignored
+- Camera can be orbited anytime during gameplay
+- No text or UI elements during gameplay
 
-## Installation
+## Technical Details
 
-### Option 1: Open Directly
-Simply open `index.html` in a modern web browser (Chrome, Firefox, Safari, Edge).
+### Technologies
+- **Three.js r152**: 3D graphics rendering engine
+- **Vanilla JavaScript**: No dependencies beyond Three.js
+- **Web Audio API**: Procedural sound generation
+- **Custom Physics**: Lightweight physics simulation
 
-### Option 2: Local Server
-For better performance and to avoid CORS issues:
+### Performance
+- Optimized rendering pipeline
+- Shadow mapping for realistic depth
+- Anti-aliasing enabled
+- Responsive design for all screen sizes
+- 60 FPS target frame rate
 
+### Browser Support
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
+- Requires WebGL 2.0 support
+
+### Architecture
+```
+index.html          # Minimal HTML structure
+app.js              # Complete application
+  ├─ Scene Setup    # Three.js initialization
+  ├─ Maze Creation  # Procedural maze geometry
+  ├─ Ball Physics   # Custom physics simulation
+  ├─ Input System   # Sequential control handler
+  ├─ Animation      # Step animations & finale
+  └─ Audio          # Web Audio sound generation
+```
+
+## Installation & Setup
+
+### Option 1: Direct Browser
+Simply open `index.html` in any modern browser.
+
+### Option 2: Local Server (Recommended)
 ```bash
-# Using Python 3
+# Python 3
 python -m http.server 8000
 
-# Using Node.js
-npx http-server
+# Node.js
+npx serve
 
-# Using PHP
+# PHP
 php -S localhost:8000
 ```
 
-Then navigate to `http://localhost:8000`
+Navigate to `http://localhost:8000`
 
-## Technologies
-
-- **Three.js** (r152): 3D graphics rendering
-- **Cannon-ES** (0.20.0): Physics simulation
-- **Web Audio API**: Sound effects
-- **Vanilla JavaScript**: No framework dependencies
+### Option 3: Live Server
+Use VS Code Live Server extension or similar tool.
 
 ## Project Structure
 
 ```
 Tilt-Labyrinth-1/
-├── index.html          # Main HTML file with scene container
-├── main.js             # Three.js application logic
-└── README.md           # This file
+├── index.html      # Entry point
+├── app.js          # Main application
+└── README.md       # Documentation
 ```
 
-## Technical Details
-
-### Scene Setup
-- **Background**: Neutral gray (#d4d4d4)
-- **Camera**: Bird's-eye view at 25-degree tilt angle
-- **Camera Distance**: 15 units from maze center
-- **Camera Height**: 8 units above maze
-
-### Maze Structure
-- **Dimensions**: 6x6 units
-- **Wall Height**: 0.5 units
-- **Wall Thickness**: 0.2 units
-- **Walls**: 6 walls forming paths with a circular center platform
-- **Position**: Floating at Y = 2 units
+## Physics & Game Mechanics
 
 ### Ball Properties
-- **Radius**: 0.18 units (18mm diameter)
-- **Mass**: 0.05 kg (50 grams)
-- **Material**: Metallic blue with high reflectivity
-- **Starting Position**: Maze entrance (-2.5, Y, -2.5)
+- **Diameter**: 18mm (0.18 units radius)
+- **Material**: Metallic with high reflectivity
+- **Start Position**: Maze entrance at (-3.2, Y, -3.2)
+- **Movement**: Velocity-based with smooth interpolation
 
-### Physics
-- **Gravity**: -9.82 m/s²
-- **Friction**: 0.3
-- **Restitution**: 0.2 (slight bounciness)
-- **Damping**: Linear and angular damping at 0.3
+### Maze Specifications
+- **Size**: 8x8 units
+- **Wall Height**: 0.5 units
+- **Wall Thickness**: 0.2 units
+- **Elevation**: 3 units above origin
+- **Walls**: 6 total (4 outer boundary + 2 inner path)
+- **Center Platform**: 0.9 unit radius circle
 
-### Animations
-- **Maze Drop**: 0.2 seconds with ease-out easing
-- **Ball Launch**: 0.3 seconds with parabolic motion
-- **Ball Orbit**: 4 seconds for 2 complete loops
-- **Ball Return**: 1 second with ease-in-out
+### Animation Timing
+- **Step 1**: ~2 seconds
+- **Step 2**: ~3 seconds (with sound)
+- **Step 3**: ~2 seconds
+- **Step 4**: ~1.5 seconds
+- **Finale Total**: ~5.7 seconds
+  - Maze drop: 0.2s
+  - Ball launch: 0.5s
+  - Orbit: 4.0s
+  - Return: 1.0s
 
-## Browser Compatibility
+### Camera Settings
+- **FOV**: 50 degrees
+- **Distance**: 18 units from center
+- **Height**: 7 units above maze
+- **Rotation**: Free horizontal orbit
+- **Look Target**: Maze center
 
-- Chrome/Edge 90+
-- Firefox 88+
-- Safari 14+
-- Opera 76+
+## Design Philosophy
 
-Requires WebGL support and JavaScript enabled.
+### Minimalism
+- No UI elements during gameplay
+- No score or timer
+- Pure spatial interaction
+- Focus on motion and physics
 
-## License
+### Sequential Gameplay
+- Strict input order enforces puzzle solving
+- Each step reveals next part of path
+- Progressive disclosure of maze layout
+- Satisfying completion reward
 
-MIT License - Feel free to use and modify for your own projects.
+### Visual Clarity
+- High contrast walls (white on gray)
+- Clear ball visibility (blue metallic)
+- No visual clutter
+- Fog provides depth perception
+
+## Troubleshooting
+
+### Ball not moving
+- Ensure correct arrow key for current step
+- Wait for previous animation to complete
+- Check browser console for step indicators
+
+### Camera not orbiting
+- Click and drag on canvas
+- Ensure mouse is over the 3D view
+- Try touch drag on mobile devices
+
+### No sound
+- Browser may block audio initially
+- Interact with page first (click/key press)
+- Check browser audio permissions
+- Sound only plays on step 2
+
+### Performance issues
+- Close other browser tabs
+- Update graphics drivers
+- Try different browser
+- Reduce browser zoom level
+
+## Development
+
+### Modifying Maze Layout
+Edit `wallDefinitions` array in `createMaze()` function:
+```javascript
+{ x: 0, z: -4, w: 8, d: 0.2, label: 'wall_name' }
+```
+
+### Adjusting Ball Speed
+Modify speed parameters in step functions:
+```javascript
+const speed = 0.8;  // Lower = slower
+```
+
+### Changing Animation Timing
+Update duration values in animation functions:
+```javascript
+const duration = 200;  // milliseconds
+```
+
+### Custom Camera Position
+Adjust camera properties in STATE:
+```javascript
+cameraRadius: 18,   // Distance from center
+cameraHeight: 7,    // Height above maze
+```
 
 ## Credits
 
-Created with Three.js and Cannon-ES physics engine.
+**Created by**: Claude (Anthropic)
+**Graphics Engine**: Three.js
+**Physics**: Custom implementation
+**Sound**: Web Audio API
+
+## License
+
+MIT License - Free to use and modify for personal and commercial projects.
+
+---
+
+Enjoy navigating the Tilt Labyrinth! 🎮
